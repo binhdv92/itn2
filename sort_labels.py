@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
 
-import numpy as np
-
-
 #with open("C:\\itn2\images2\\500237051_(1).txt",mode="r") as f:
 #    data = f.readcsv
            
