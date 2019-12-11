@@ -32,11 +32,14 @@ print(get_picture_name())
 
 
 # In[]
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0) 
+
+   
 while True:
     ret,frame = cap.read()
     frame = cv2.rotate(frame,cv2.ROTATE_180)
-    
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
     cv2.imshow("Frame",frame)
 
     key = cv2.waitKey(1)
@@ -48,8 +51,10 @@ while True:
         IMAGE_NAME=get_picture_name()
         print(f"Save {IMAGE_NAME} to disk")
         cv2.imwrite(IMAGE_NAME,frame)
-    
 
+
+# Close device
+cap.release()
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
