@@ -1,26 +1,38 @@
 # -*- coding: utf-8 -*-
 # In[] Import
+import argparse
 import cv2
 from datetime import datetime
 import os
-# import argparse
+
+
+# In[]
+parser = argparse.ArgumentParser()
+parser.add_argument('-n','--name',default='CAP')
+parser.add_argument('-p','--path',default='images')
+
+args=parser.parse_args()
+
+print(args.name)
+print(args.path)
 
 
 # In[] Declare
-def get_picture_name(PICTURE_PERFIX_NAME="500112800"):
+def get_picture_name():
     dt = datetime.now()
     dtstr=f"{dt}"
     dtstr=dtstr.replace(" ","_")
-    dtstr=dtstr.replace(":","-")
-    IMAGE_NAME=f"{PICTURE_PERFIX_NAME}_{dtstr}.jpg"
-    # print(IMAGE_NAME)
-    IMAGE_NAME=os.path.join("images",IMAGE_NAME)
+    dtstr=dtstr.replace(":","")
+    dtstr=dtstr.replace("-","")
+    dtstr=dtstr.replace(".","_")
+    IMAGE_NAME=os.path.join(args.path, f"{args.name}_{dtstr}.jpg")
     return IMAGE_NAME
-# cv2.ROTATE_90_CLOCKWISE
+
+print(get_picture_name())
+
+
 # In[]
 cap = cv2.VideoCapture(0)
-
-
 while True:
     ret,frame = cap.read()
     frame = cv2.rotate(frame,cv2.ROTATE_180)
@@ -33,13 +45,13 @@ while True:
         print("exit programe")
         break
     elif(key == ord("s")):
-        IMAGE_NAME=get_picture_name(PICTURE_PERFIX_NAME="500112800")
+        IMAGE_NAME=get_picture_name()
         print(f"Save {IMAGE_NAME} to disk")
         cv2.imwrite(IMAGE_NAME,frame)
     
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-    
-    
+
+#!exit
 
