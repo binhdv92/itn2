@@ -1,16 +1,37 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
+import argparse
+import os
 
-#with open("C:\\itn2\images2\\500237051_(1).txt",mode="r") as f:
-#    data = f.readcsv
-           
-nametable=["images2/500390261_(1).txt",
-           "images2/500390261_(2).txt",
-           "images2/500390261_(3).txt",
-           "images2/500390261_(4).txt",
-           "images2/500390261_(5).txt"]
-           
-for tempname in nametable:
+# In[]
+def get_list(path, extension):
+    temp=os.listdir(path)
+    for i,v in enumerate(temp):
+        if ('jpg' in v):
+            temp.pop(i)
+            
+    for i,v in enumerate(temp):
+        if ('classes' in v):
+            temp.pop(i)
+            
+    temp2=[]
+    for i,v in enumerate(temp):
+        if '.txt' in v:
+            temp2.append(os.path.join(path,v))
+    return temp2
+
+# In[]
+parser = argparse.ArgumentParser(description="input the [-p path]path that would like to list in [-e extension]")
+parser.add_argument('-p','--path',default='images')
+parser.add_argument('-e','--extension',default='txt')
+parser.add_argument('-o','--output',default='ouput_images_list.csv')
+args=parser.parse_args()
+print(args.__dict__)
+temp=get_list(args.path, args.extension)
+
+
+# In[]
+for tempname in temp:
     print(tempname)
     data = pd.read_csv(tempname,delimiter=' ',encoding='utf-8',header=None,prefix='var')
     data.sort_values(by=['var2','var1'],inplace=True)
