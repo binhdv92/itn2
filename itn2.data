@@ -1,0 +1,5 @@
+classes= 10
+train  = itn2/train_images_perfix.csv
+valid  = itn2/valid_images_perfix.csv
+names  = itn2/itn2.names
+backup = /content/gdrive/My\ Drive/backup
